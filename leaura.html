@@ -1,0 +1,1912 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaure – Feel the Beat, Embrace the Rhythm</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=Dancing+Script:wght@600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --black: #050507;
+        --deep: #0a0a12;
+        --card: #0f0f1a;
+        --border: rgba(255, 255, 255, 0.07);
+        --cyan: #00f5ff;
+        --magenta: #ff00c8;
+        --gold: #ffd700;
+        --white: #f0f0ff;
+        --muted: #8888aa;
+        --glow-cyan:
+          0 0 20px rgba(0, 245, 255, 0.5), 0 0 60px rgba(0, 245, 255, 0.2);
+        --glow-mag:
+          0 0 20px rgba(255, 0, 200, 0.5), 0 0 60px rgba(255, 0, 200, 0.2);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--black);
+        color: var(--white);
+        font-family: "Outfit", sans-serif;
+        overflow-x: hidden;
+      }
+
+      /* ── SCROLLBAR ── */
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--deep);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--cyan);
+        border-radius: 2px;
+      }
+
+      /* ── NAV ── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 6%;
+        background: rgba(5, 5, 7, 0.85);
+        backdrop-filter: blur(18px);
+        border-bottom: 1px solid var(--border);
+        transition: padding 0.3s;
+      }
+      .nav-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 2rem;
+        letter-spacing: 4px;
+        background: linear-gradient(90deg, var(--cyan), var(--magenta));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-decoration: none;
+      }
+      .nav-logo span {
+        font-family: "Dancing Script", cursive;
+        font-size: 0.7rem;
+        display: block;
+        background: linear-gradient(90deg, var(--magenta), var(--cyan));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: 2px;
+        margin-top: -6px;
+      }
+      .nav-links {
+        display: flex;
+        gap: 36px;
+        list-style: none;
+      }
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 500;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        transition: color 0.3s;
+        position: relative;
+      }
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: var(--cyan);
+        transform: scaleX(0);
+        transition: transform 0.3s;
+      }
+      .nav-links a:hover {
+        color: var(--cyan);
+      }
+      .nav-links a:hover::after {
+        transform: scaleX(1);
+      }
+      .nav-cta {
+        background: linear-gradient(135deg, var(--cyan), var(--magenta));
+        color: var(--black) !important;
+        font-weight: 700 !important;
+        padding: 10px 24px;
+        border-radius: 4px;
+        letter-spacing: 1px !important;
+      }
+      .nav-cta::after {
+        display: none !important;
+      }
+      .nav-cta:hover {
+        opacity: 0.85;
+      }
+
+      .hamburger {
+        display: none;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+      }
+      .hamburger span {
+        width: 26px;
+        height: 2px;
+        background: var(--cyan);
+        display: block;
+        transition: 0.3s;
+      }
+
+      /* ── HERO ── */
+      #home {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        padding: 120px 6% 80px;
+        text-align: center;
+      }
+      .hero-bg {
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 80% 60% at 50% 0%,
+            rgba(0, 245, 255, 0.12) 0%,
+            transparent 70%
+          ),
+          radial-gradient(
+            ellipse 60% 50% at 80% 80%,
+            rgba(255, 0, 200, 0.1) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse 40% 40% at 20% 60%,
+            rgba(255, 215, 0, 0.05) 0%,
+            transparent 60%
+          );
+      }
+      .grid-overlay {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(0, 245, 255, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 245, 255, 0.04) 1px, transparent 1px);
+        background-size: 60px 60px;
+        animation: gridShift 20s linear infinite;
+      }
+      @keyframes gridShift {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 60px 60px;
+        }
+      }
+      .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 900px;
+      }
+      .hero-badge {
+        display: inline-block;
+        border: 1px solid rgba(0, 245, 255, 0.4);
+        color: var(--cyan);
+        font-size: 0.75rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        padding: 8px 20px;
+        border-radius: 2px;
+        margin-bottom: 28px;
+        animation: fadeUp 0.8s ease both;
+      }
+      .hero-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(4rem, 12vw, 9rem);
+        line-height: 0.9;
+        letter-spacing: 6px;
+        animation: fadeUp 0.8s 0.15s ease both;
+      }
+      .hero-title .line1 {
+        background: linear-gradient(
+          90deg,
+          var(--white) 0%,
+          var(--cyan) 60%,
+          var(--magenta) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: block;
+      }
+      .hero-title .line2 {
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+        display: block;
+      }
+      .hero-tagline {
+        font-family: "Dancing Script", cursive;
+        font-size: clamp(1.2rem, 3vw, 1.8rem);
+        color: var(--magenta);
+        margin: 20px 0 10px;
+        animation: fadeUp 0.8s 0.3s ease both;
+      }
+      .hero-sub {
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.7;
+        max-width: 560px;
+        margin: 0 auto 40px;
+        animation: fadeUp 0.8s 0.45s ease both;
+      }
+      .hero-btns {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+        animation: fadeUp 0.8s 0.6s ease both;
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, var(--cyan), var(--magenta));
+        color: var(--black);
+        font-weight: 700;
+        padding: 16px 40px;
+        border: none;
+        border-radius: 4px;
+        font-family: "Outfit", sans-serif;
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-decoration: none;
+        cursor: pointer;
+        transition:
+          transform 0.2s,
+          box-shadow 0.2s;
+        box-shadow: var(--glow-cyan);
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--glow-mag);
+      }
+      .btn-outline {
+        background: transparent;
+        color: var(--white);
+        font-weight: 500;
+        padding: 16px 40px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        font-family: "Outfit", sans-serif;
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-decoration: none;
+        cursor: pointer;
+        transition:
+          border-color 0.3s,
+          color 0.3s;
+      }
+      .btn-outline:hover {
+        border-color: var(--cyan);
+        color: var(--cyan);
+      }
+
+      .hero-floor-preview {
+        margin-top: 70px;
+        position: relative;
+        animation: fadeUp 0.8s 0.75s ease both;
+      }
+      .floor-placeholder {
+        width: 100%;
+        max-width: 700px;
+        height: 200px;
+        margin: 0 auto;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 245, 255, 0.08),
+          rgba(255, 0, 200, 0.08)
+        );
+        border: 1px solid rgba(0, 245, 255, 0.2);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+        position: relative;
+        overflow: hidden;
+      }
+      .floor-placeholder::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 39px,
+            rgba(0, 245, 255, 0.06) 39px,
+            rgba(0, 245, 255, 0.06) 40px
+          ),
+          repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 39px,
+            rgba(0, 245, 255, 0.06) 39px,
+            rgba(0, 245, 255, 0.06) 40px
+          );
+      }
+      .floor-icon {
+        font-size: 2rem;
+      }
+
+      /* ── STATS ── */
+      .stats-bar {
+        background: var(--deep);
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 40px 6%;
+        display: flex;
+        justify-content: center;
+        gap: 60px;
+        flex-wrap: wrap;
+      }
+      .stat-item {
+        text-align: center;
+      }
+      .stat-num {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 2.8rem;
+        letter-spacing: 3px;
+        background: linear-gradient(90deg, var(--cyan), var(--magenta));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .stat-label {
+        color: var(--muted);
+        font-size: 0.78rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-top: 4px;
+      }
+
+      /* ── SECTIONS COMMON ── */
+      section {
+        padding: 100px 6%;
+      }
+      .section-tag {
+        color: var(--cyan);
+        font-size: 0.75rem;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .section-tag::before {
+        content: "";
+        width: 40px;
+        height: 1px;
+        background: var(--cyan);
+      }
+      .section-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        letter-spacing: 4px;
+        line-height: 1;
+        margin-bottom: 20px;
+      }
+      .section-title em {
+        font-style: normal;
+        background: linear-gradient(90deg, var(--cyan), var(--magenta));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+      .section-desc {
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.8;
+        max-width: 580px;
+      }
+
+      /* ── ABOUT ── */
+      #about {
+        background: var(--deep);
+      }
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+      }
+      .about-visual {
+        position: relative;
+      }
+      .about-img-placeholder {
+        width: 100%;
+        aspect-ratio: 4/3;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 245, 255, 0.06),
+          rgba(255, 0, 200, 0.06)
+        );
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 12px;
+        color: var(--muted);
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+        position: relative;
+        overflow: hidden;
+      }
+      .about-img-placeholder::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 10px,
+          rgba(0, 245, 255, 0.02) 10px,
+          rgba(0, 245, 255, 0.02) 11px
+        );
+      }
+      .about-accent {
+        position: absolute;
+        bottom: -20px;
+        right: -20px;
+        width: 160px;
+        height: 160px;
+        border: 1px solid rgba(255, 0, 200, 0.3);
+        border-radius: 4px;
+        z-index: -1;
+      }
+      .about-accent2 {
+        position: absolute;
+        top: -20px;
+        left: -20px;
+        width: 80px;
+        height: 80px;
+        border: 1px solid rgba(0, 245, 255, 0.3);
+        border-radius: 4px;
+        z-index: -1;
+      }
+      .about-features {
+        margin-top: 36px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .about-feature {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 16px 20px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        transition: border-color 0.3s;
+      }
+      .about-feature:hover {
+        border-color: rgba(0, 245, 255, 0.3);
+      }
+      .feature-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 6px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 245, 255, 0.15),
+          rgba(255, 0, 200, 0.1)
+        );
+      }
+      .feature-text h4 {
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .feature-text p {
+        font-size: 0.82rem;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      /* ── SERVICES / PRICING ── */
+      #pricing {
+        background: var(--black);
+      }
+      .pricing-intro {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        gap: 24px;
+        margin-bottom: 60px;
+      }
+      .pricing-note {
+        background: linear-gradient(
+          135deg,
+          rgba(0, 245, 255, 0.1),
+          rgba(255, 0, 200, 0.1)
+        );
+        border: 1px solid rgba(0, 245, 255, 0.2);
+        padding: 16px 24px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        color: var(--cyan);
+        letter-spacing: 1px;
+      }
+      .pricing-note strong {
+        display: block;
+        font-size: 1.4rem;
+        font-family: "Bebas Neue", sans-serif;
+        letter-spacing: 3px;
+      }
+
+      .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        margin-bottom: 50px;
+      }
+      .pricing-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 36px 28px;
+        position: relative;
+        overflow: hidden;
+        transition:
+          transform 0.3s,
+          border-color 0.3s;
+      }
+      .pricing-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(0, 245, 255, 0.35);
+      }
+      .pricing-card.featured {
+        border-color: rgba(0, 245, 255, 0.4);
+        background: linear-gradient(
+          160deg,
+          rgba(0, 245, 255, 0.05) 0%,
+          var(--card) 60%
+        );
+      }
+      .pricing-card.featured::before {
+        content: "POPULAR";
+        position: absolute;
+        top: 18px;
+        right: -28px;
+        background: linear-gradient(90deg, var(--cyan), var(--magenta));
+        color: var(--black);
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 2px;
+        padding: 5px 40px;
+        transform: rotate(45deg);
+      }
+      .pricing-card::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, var(--cyan), var(--magenta));
+        transform: scaleX(0);
+        transition: transform 0.3s;
+      }
+      .pricing-card:hover::after {
+        transform: scaleX(1);
+      }
+      .pricing-size {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.6rem;
+        letter-spacing: 3px;
+        color: var(--cyan);
+        margin-bottom: 4px;
+      }
+      .pricing-label {
+        color: var(--muted);
+        font-size: 0.78rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 20px;
+      }
+      .pricing-price {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 3rem;
+        letter-spacing: 2px;
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+      .pricing-price span {
+        font-size: 1.2rem;
+        color: var(--muted);
+      }
+      .pricing-sqft {
+        color: var(--muted);
+        font-size: 0.78rem;
+        letter-spacing: 1px;
+        margin-bottom: 24px;
+      }
+      .pricing-features {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 28px;
+      }
+      .pricing-features li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.85rem;
+        color: #ccc;
+      }
+      .pricing-features li::before {
+        content: "✦";
+        color: var(--cyan);
+        font-size: 0.5rem;
+      }
+      .btn-book {
+        width: 100%;
+        padding: 14px;
+        background: transparent;
+        border: 1px solid rgba(0, 245, 255, 0.3);
+        color: var(--cyan);
+        font-family: "Outfit", sans-serif;
+        font-size: 0.82rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border-radius: 4px;
+        cursor: pointer;
+        transition:
+          background 0.3s,
+          color 0.3s;
+        text-decoration: none;
+        display: block;
+        text-align: center;
+      }
+      .btn-book:hover {
+        background: var(--cyan);
+        color: var(--black);
+      }
+      .btn-book.featured-btn {
+        background: linear-gradient(135deg, var(--cyan), var(--magenta));
+        color: var(--black);
+        border: none;
+        font-weight: 700;
+      }
+
+      .custom-pricing {
+        border: 1px dashed rgba(255, 215, 0, 0.3);
+        border-radius: 8px;
+        padding: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 24px;
+        background: rgba(255, 215, 0, 0.03);
+      }
+      .custom-pricing h3 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.8rem;
+        letter-spacing: 3px;
+        color: var(--gold);
+        margin-bottom: 8px;
+      }
+      .custom-pricing p {
+        color: var(--muted);
+        font-size: 0.9rem;
+        max-width: 400px;
+      }
+      .btn-gold {
+        background: linear-gradient(135deg, #ffd700, #ff8c00);
+        color: var(--black);
+        font-weight: 700;
+        padding: 14px 36px;
+        border: none;
+        border-radius: 4px;
+        font-family: "Outfit", sans-serif;
+        font-size: 0.85rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        text-decoration: none;
+        cursor: pointer;
+        white-space: nowrap;
+        transition:
+          opacity 0.2s,
+          transform 0.2s;
+      }
+      .btn-gold:hover {
+        opacity: 0.85;
+        transform: translateY(-2px);
+      }
+
+      /* ── GALLERY ── */
+      #gallery {
+        background: var(--deep);
+      }
+      .gallery-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 50px;
+      }
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: repeat(3, 200px);
+        gap: 12px;
+      }
+      .gallery-item {
+        background: linear-gradient(
+          135deg,
+          rgba(0, 245, 255, 0.06),
+          rgba(255, 0, 200, 0.06)
+        );
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 8px;
+        color: var(--muted);
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+        text-align: center;
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+        transition:
+          border-color 0.3s,
+          transform 0.3s;
+      }
+      .gallery-item:hover {
+        border-color: rgba(0, 245, 255, 0.4);
+        transform: scale(1.02);
+      }
+      .gallery-item::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 10px,
+          rgba(0, 245, 255, 0.015) 10px,
+          rgba(0, 245, 255, 0.015) 11px
+        );
+      }
+      .gallery-item:nth-child(1) {
+        grid-column: span 5;
+        grid-row: span 2;
+      }
+      .gallery-item:nth-child(2) {
+        grid-column: span 4;
+      }
+      .gallery-item:nth-child(3) {
+        grid-column: span 3;
+      }
+      .gallery-item:nth-child(4) {
+        grid-column: span 3;
+      }
+      .gallery-item:nth-child(5) {
+        grid-column: span 4;
+      }
+      .gallery-item:nth-child(6) {
+        grid-column: span 4;
+        grid-row: span 2;
+      }
+      .gallery-item:nth-child(7) {
+        grid-column: span 4;
+      }
+      .gallery-item:nth-child(8) {
+        grid-column: span 4;
+      }
+      .gallery-item:nth-child(9) {
+        grid-column: span 3;
+      }
+      .gallery-icon {
+        font-size: 1.6rem;
+        z-index: 1;
+      }
+      .gallery-label {
+        z-index: 1;
+      }
+
+      /* Video strip */
+      .video-strip {
+        margin-top: 16px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+      }
+      .video-item {
+        aspect-ratio: 16/9;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 0, 200, 0.08),
+          rgba(0, 245, 255, 0.06)
+        );
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 8px;
+        color: var(--muted);
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition: border-color 0.3s;
+      }
+      .video-item:hover {
+        border-color: rgba(255, 0, 200, 0.4);
+      }
+      .play-btn {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+      }
+
+      /* ── TESTIMONIALS ── */
+      #testimonials {
+        background: var(--black);
+      }
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
+        margin-top: 60px;
+      }
+      .testi-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        padding: 32px 28px;
+        position: relative;
+        transition:
+          border-color 0.3s,
+          transform 0.3s;
+      }
+      .testi-card:hover {
+        border-color: rgba(255, 0, 200, 0.3);
+        transform: translateY(-4px);
+      }
+      .testi-quote {
+        font-size: 4rem;
+        font-family: "Bebas Neue", sans-serif;
+        color: rgba(0, 245, 255, 0.15);
+        position: absolute;
+        top: 10px;
+        left: 24px;
+        line-height: 1;
+      }
+      .testi-stars {
+        color: var(--gold);
+        font-size: 0.85rem;
+        margin-bottom: 16px;
+        letter-spacing: 2px;
+      }
+      .testi-text {
+        font-size: 0.9rem;
+        line-height: 1.8;
+        color: #ccc;
+        margin-bottom: 24px;
+        font-style: italic;
+      }
+      .testi-author {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .testi-avatar {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--cyan), var(--magenta));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 1rem;
+        color: var(--black);
+        flex-shrink: 0;
+      }
+      .testi-name {
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+      .testi-event {
+        color: var(--muted);
+        font-size: 0.78rem;
+        letter-spacing: 1px;
+      }
+
+      /* ── CONTACT ── */
+      #contact {
+        background: var(--deep);
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: start;
+      }
+      .contact-info {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 40px;
+      }
+      .contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 18px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        transition: border-color 0.3s;
+      }
+      .contact-item:hover {
+        border-color: rgba(0, 245, 255, 0.25);
+      }
+      .contact-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 6px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        background: linear-gradient(
+          135deg,
+          rgba(0, 245, 255, 0.15),
+          rgba(255, 0, 200, 0.1)
+        );
+      }
+      .contact-detail h4 {
+        font-size: 0.78rem;
+        color: var(--muted);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .contact-detail p,
+      .contact-detail a {
+        font-size: 0.9rem;
+        color: var(--white);
+        text-decoration: none;
+        line-height: 1.6;
+      }
+      .contact-detail a:hover {
+        color: var(--cyan);
+      }
+
+      .whatsapp-btn {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: linear-gradient(135deg, #25d366, #128c7e);
+        color: white;
+        padding: 18px 28px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        transition:
+          opacity 0.3s,
+          transform 0.2s;
+        margin-top: 8px;
+      }
+      .whatsapp-btn:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+      }
+
+      /* Contact Form */
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .form-group label {
+        font-size: 0.78rem;
+        color: var(--muted);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+      }
+      .form-group input,
+      .form-group textarea,
+      .form-group select {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--border);
+        border-radius: 4px;
+        padding: 14px 16px;
+        color: var(--white);
+        font-family: "Outfit", sans-serif;
+        font-size: 0.9rem;
+        outline: none;
+        transition: border-color 0.3s;
+        -webkit-appearance: none;
+      }
+      .form-group input:focus,
+      .form-group textarea:focus,
+      .form-group select:focus {
+        border-color: var(--cyan);
+      }
+      .form-group textarea {
+        height: 130px;
+        resize: vertical;
+      }
+      .form-group select option {
+        background: var(--card);
+      }
+      .form-submit {
+        background: linear-gradient(135deg, var(--cyan), var(--magenta));
+        color: var(--black);
+        font-weight: 700;
+        padding: 16px;
+        border: none;
+        border-radius: 4px;
+        font-family: "Outfit", sans-serif;
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition:
+          opacity 0.2s,
+          transform 0.2s;
+        box-shadow: var(--glow-cyan);
+      }
+      .form-submit:hover {
+        opacity: 0.85;
+        transform: translateY(-2px);
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        background: var(--black);
+        border-top: 1px solid var(--border);
+        padding: 50px 6% 30px;
+      }
+      .footer-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        flex-wrap: wrap;
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+      .footer-brand .nav-logo {
+        font-size: 2.2rem;
+        display: block;
+      }
+      .footer-brand p {
+        color: var(--muted);
+        font-size: 0.85rem;
+        line-height: 1.7;
+        max-width: 280px;
+        margin-top: 14px;
+      }
+      .footer-links h4 {
+        font-size: 0.78rem;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--cyan);
+        margin-bottom: 16px;
+      }
+      .footer-links ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .footer-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: color 0.3s;
+      }
+      .footer-links a:hover {
+        color: var(--white);
+      }
+      .footer-bottom {
+        border-top: 1px solid var(--border);
+        padding-top: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .footer-bottom p {
+        color: var(--muted);
+        font-size: 0.78rem;
+        letter-spacing: 1px;
+      }
+      .footer-glow {
+        text-align: center;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(3rem, 8vw, 6rem);
+        letter-spacing: 8px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(0, 245, 255, 0.08),
+          transparent
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin: 20px 0;
+        pointer-events: none;
+      }
+
+      /* ── ANIMATIONS ── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ── FLOATING PARTICLES ── */
+      .particles {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+      .particle {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        border-radius: 50%;
+        background: var(--cyan);
+        animation: float linear infinite;
+        opacity: 0;
+      }
+      @keyframes float {
+        0% {
+          transform: translateY(100vh) scale(0);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.6;
+        }
+        90% {
+          opacity: 0.4;
+        }
+        100% {
+          transform: translateY(-100px) scale(1);
+          opacity: 0;
+        }
+      }
+
+      /* ── MOBILE ── */
+      @media (max-width: 900px) {
+        .about-grid,
+        .contact-grid {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        .gallery-grid {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: auto;
+        }
+        .gallery-item {
+          grid-column: span 1 !important;
+          grid-row: span 1 !important;
+          height: 160px;
+        }
+        .video-strip {
+          grid-template-columns: 1fr;
+        }
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        .footer-top {
+          flex-direction: column;
+        }
+        .pricing-intro {
+          flex-direction: column;
+        }
+      }
+      @media (max-width: 700px) {
+        .nav-links {
+          display: none;
+          flex-direction: column;
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(5, 5, 7, 0.97);
+          align-items: center;
+          justify-content: center;
+          gap: 32px;
+          z-index: 99;
+        }
+        .nav-links.open {
+          display: flex;
+        }
+        .nav-links a {
+          font-size: 1.2rem;
+        }
+        .hamburger {
+          display: flex;
+          z-index: 101;
+        }
+        .stats-bar {
+          gap: 30px;
+        }
+        .custom-pricing {
+          flex-direction: column;
+        }
+        .footer-bottom {
+          flex-direction: column;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav id="navbar">
+      <a href="#home" class="nav-logo"
+        >LEAURE<span>Feel the Beat, Embrace the Rhythm</span></a
+      >
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#contact" class="nav-cta">Book Now</a></li>
+      </ul>
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="home">
+      <div class="hero-bg"></div>
+      <div class="grid-overlay"></div>
+      <div class="particles" id="particles"></div>
+      <div class="hero-content">
+        <div class="hero-badge">
+          ✦ Premium LED Dance Floors · Kochi, Kerala ✦
+        </div>
+        <h1 class="hero-title">
+          <span class="line1">LEAURE</span>
+          <span class="line2">DANCE FLOORS</span>
+        </h1>
+        <p class="hero-tagline">Feel the Beat, Embrace the Rhythm</p>
+        <p class="hero-sub">
+          Premium LED dance floors powered by Madrix 5 real-time control
+          technology — transforming weddings, DJ events, shows and private
+          parties into unforgettable light experiences.
+        </p>
+        <div class="hero-btns">
+          <a href="#pricing" class="btn-primary">View Pricing</a>
+          <a href="#contact" class="btn-outline">Get a Quote</a>
+        </div>
+        <div class="hero-floor-preview">
+          <div class="floor-placeholder">
+            <span class="floor-icon">💡</span>
+            <span>YOUR PHOTO / VIDEO HERE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <div class="stats-bar reveal">
+      <div class="stat-item">
+        <div class="stat-num">200+</div>
+        <div class="stat-label">Events Delivered</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">5★</div>
+        <div class="stat-label">Client Rating</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">MADRIX 5</div>
+        <div class="stat-label">Real-Time Control</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">24/7</div>
+        <div class="stat-label">Event Support</div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="about-grid">
+        <div class="about-visual reveal">
+          <div class="about-img-placeholder">
+            <span style="font-size: 2rem">🎆</span>
+            <span
+              style="
+                font-size: 0.8rem;
+                letter-spacing: 2px;
+                color: var(--muted);
+              "
+              >YOUR PHOTO HERE</span
+            >
+          </div>
+          <div class="about-accent"></div>
+          <div class="about-accent2"></div>
+        </div>
+        <div class="about-text reveal">
+          <div class="section-tag">About Leaure</div>
+          <h2 class="section-title">
+            Kochi's <em>Premier</em> LED Dance Floor Rental
+          </h2>
+          <p class="section-desc">
+            We bring world-class LED dance floor technology to Kerala — creating
+            mesmerizing light experiences for every type of celebration. From
+            intimate weddings to massive DJ festivals, Leaure transforms
+            ordinary floors into extraordinary stages.
+          </p>
+          <div class="about-features">
+            <div class="about-feature">
+              <div class="feature-icon">🎛️</div>
+              <div class="feature-text">
+                <h4>Madrix 5 Real-Time Control</h4>
+                <p>
+                  Industry-leading software for live LED control — sync lights
+                  to music, create custom patterns on the fly.
+                </p>
+              </div>
+            </div>
+            <div class="about-feature">
+              <div class="feature-icon">✨</div>
+              <div class="feature-text">
+                <h4>Premium LED Panels</h4>
+                <p>
+                  High-brightness, durable LED tiles with vibrant full RGB color
+                  display for every event size.
+                </p>
+              </div>
+            </div>
+            <div class="about-feature">
+              <div class="feature-icon">🚚</div>
+              <div class="feature-text">
+                <h4>Full Setup & Support</h4>
+                <p>
+                  Our expert team handles installation, operation, and
+                  dismantling — you just enjoy the event.
+                </p>
+              </div>
+            </div>
+            <div class="about-feature">
+              <div class="feature-icon">🎉</div>
+              <div class="feature-text">
+                <h4>All Event Types</h4>
+                <p>
+                  Weddings, DJ nights, corporate events, fashion shows, private
+                  parties & more across Kochi & Kerala.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing">
+      <div class="pricing-intro reveal">
+        <div>
+          <div class="section-tag">Transparent Pricing</div>
+          <h2 class="section-title">Simple <em>Per Sq. Ft.</em> Pricing</h2>
+          <p class="section-desc">
+            No hidden charges. Pay only for the floor size you need.
+          </p>
+        </div>
+        <div class="pricing-note">
+          <strong>₹250 / sq.ft.</strong>
+          BASE RATE PER SQUARE FOOT
+        </div>
+      </div>
+
+      <div class="pricing-grid reveal">
+        <div class="pricing-card">
+          <div class="pricing-size">10 × 10 FT</div>
+          <div class="pricing-label">Intimate Setup</div>
+          <div class="pricing-price">₹<span></span>25,000</div>
+          <div class="pricing-sqft">100 sq.ft. × ₹250</div>
+          <ul class="pricing-features">
+            <li>100 sq.ft. LED floor</li>
+            <li>Madrix 5 real-time control</li>
+            <li>Full RGB color display</li>
+            <li>Setup & dismantling included</li>
+            <li>Ideal for small parties & private events</li>
+          </ul>
+          <a href="#contact" class="btn-book">Book This</a>
+        </div>
+        <div class="pricing-card featured">
+          <div class="pricing-size">15 × 15 FT</div>
+          <div class="pricing-label">Wedding Special</div>
+          <div class="pricing-price">₹<span></span>56,250</div>
+          <div class="pricing-sqft">225 sq.ft. × ₹250</div>
+          <ul class="pricing-features">
+            <li>225 sq.ft. LED floor</li>
+            <li>Madrix 5 real-time control</li>
+            <li>Full RGB color display</li>
+            <li>Setup & dismantling included</li>
+            <li>Perfect for weddings & receptions</li>
+            <li>On-site operator throughout event</li>
+          </ul>
+          <a href="#contact" class="btn-book featured-btn">Book This</a>
+        </div>
+        <div class="pricing-card">
+          <div class="pricing-size">20 × 20 FT</div>
+          <div class="pricing-label">DJ & Shows</div>
+          <div class="pricing-price">₹<span></span>1,00,000</div>
+          <div class="pricing-sqft">400 sq.ft. × ₹250</div>
+          <ul class="pricing-features">
+            <li>400 sq.ft. LED floor</li>
+            <li>Madrix 5 real-time control</li>
+            <li>Full RGB color display</li>
+            <li>Setup & dismantling included</li>
+            <li>Best for DJ nights & large shows</li>
+            <li>On-site operator throughout event</li>
+          </ul>
+          <a href="#contact" class="btn-book">Book This</a>
+        </div>
+      </div>
+
+      <div class="custom-pricing reveal">
+        <div>
+          <h3>Need a Custom Size?</h3>
+          <p>
+            We accommodate any floor dimension. Just tell us your venue size and
+            event type — we'll calculate a precise quote instantly. All sizes
+            available at ₹250 per sq.ft.
+          </p>
+        </div>
+        <a href="https://wa.me/918590070052" target="_blank" class="btn-gold"
+          >Get Custom Quote →</a
+        >
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery">
+      <div class="gallery-header reveal">
+        <div>
+          <div class="section-tag">Gallery</div>
+          <h2 class="section-title">Floors That <em>Glow</em></h2>
+        </div>
+        <p class="section-desc" style="max-width: 320px">
+          A glimpse of the magic we've created across Kerala's most stunning
+          events.
+        </p>
+      </div>
+
+      <div class="gallery-grid reveal">
+        <div class="gallery-item">
+          <span class="gallery-icon">📸</span
+          ><span class="gallery-label">PHOTO 1</span>
+        </div>
+        <div class="gallery-item">
+          <span class="gallery-icon">📸</span
+          ><span class="gallery-label">PHOTO 2</span>
+        </div>
+        <div class="gallery-item">
+          <span class="gallery-icon">📸</span
+          ><span class="gallery-label">PHOTO 3</span>
+        </div>
+        <div class="gallery-item">
+          <span class="gallery-icon">📸</span
+          ><span class="gallery-label">PHOTO 4</span>
+        </div>
+        <div class="gallery-item">
+          <span class="gallery-icon">📸</span
+          ><span class="gallery-label">PHOTO 5</span>
+        </div>
+        <div class="gallery-item">
+          <span class="gallery-icon">📸</span
+          ><span class="gallery-label">PHOTO 6</span>
+        </div>
+        <div class="gallery-item">
+          <span class="gallery-icon">📸</span
+          ><span class="gallery-label">PHOTO 7</span>
+        </div>
+        <div class="gallery-item">
+          <span class="gallery-icon">📸</span
+          ><span class="gallery-label">PHOTO 8</span>
+        </div>
+        <div class="gallery-item">
+          <span class="gallery-icon">📸</span
+          ><span class="gallery-label">PHOTO 9</span>
+        </div>
+      </div>
+
+      <div class="video-strip reveal" style="margin-top: 24px">
+        <div class="video-item">
+          <div class="play-btn">▶</div>
+          <span>VIDEO 1</span>
+        </div>
+        <div class="video-item">
+          <div class="play-btn">▶</div>
+          <span>VIDEO 2</span>
+        </div>
+        <div class="video-item">
+          <div class="play-btn">▶</div>
+          <span>VIDEO 3</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials">
+      <div
+        class="reveal"
+        style="text-align: center; max-width: 600px; margin: 0 auto"
+      >
+        <div class="section-tag" style="justify-content: center">
+          What Clients Say
+        </div>
+        <h2 class="section-title">Loved by <em>Every</em> Event</h2>
+        <p class="section-desc" style="margin: 0 auto">
+          Don't just take our word for it — here's what our happy clients across
+          Kochi and Kerala have to say.
+        </p>
+      </div>
+
+      <div class="testimonials-grid reveal">
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">
+            The LED dance floor completely transformed our wedding reception.
+            The Madrix control was synchronized perfectly with the DJ music.
+            Everyone was stunned!
+          </p>
+          <div class="testi-author">
+            <div class="testi-avatar">A</div>
+            <div>
+              <div class="testi-name">Arun & Priya</div>
+              <div class="testi-event">Wedding Reception · Kochi</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">
+            We booked a 20×20 floor for our DJ night. The setup was flawless and
+            the team was professional from start to finish. Crowd went
+            absolutely wild!
+          </p>
+          <div class="testi-author">
+            <div class="testi-avatar">R</div>
+            <div>
+              <div class="testi-name">Rahul Events</div>
+              <div class="testi-event">DJ Night · Ernakulam</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-quote">"</div>
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">
+            Absolutely magical experience. The real-time light control made our
+            corporate event feel like a world-class production. Highly recommend
+            Leaure!
+          </p>
+          <div class="testi-author">
+            <div class="testi-avatar">S</div>
+            <div>
+              <div class="testi-name">Sneha Pillai</div>
+              <div class="testi-event">Corporate Event · Thrissur</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="contact-grid">
+        <div class="reveal">
+          <div class="section-tag">Get In Touch</div>
+          <h2 class="section-title">Let's Light Up <em>Your Event</em></h2>
+          <p class="section-desc">
+            Reach out to us for bookings, pricing queries, or custom floor
+            requirements. We're available 24/7 for your event needs.
+          </p>
+
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">📞</div>
+              <div class="contact-detail">
+                <h4>Call Us</h4>
+                <p>
+                  <a href="tel:+919746179221">+91 9746 179 221</a><br />
+                  <a href="tel:+917994210052">+91 7994 210 052</a><br />
+                  <a href="tel:+918590070052">+91 8590 070 052</a>
+                </p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">✉️</div>
+              <div class="contact-detail">
+                <h4>Email</h4>
+                <a href="mailto:leaura2026@gmail.com">leaura2026@gmail.com</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">📍</div>
+              <div class="contact-detail">
+                <h4>Location</h4>
+                <p>Kochi, Kerala, India</p>
+              </div>
+            </div>
+            <a
+              href="https://wa.me/918590070052"
+              target="_blank"
+              class="whatsapp-btn"
+            >
+              <span style="font-size: 1.4rem">💬</span>
+              Chat on WhatsApp — +91 8590 070 052
+            </a>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <div class="contact-form">
+            <h3
+              style="
+                font-family: &quot;Bebas Neue&quot;, sans-serif;
+                font-size: 1.8rem;
+                letter-spacing: 3px;
+                margin-bottom: 8px;
+              "
+            >
+              Send an Enquiry
+            </h3>
+            <p
+              style="
+                color: var(--muted);
+                font-size: 0.85rem;
+                margin-bottom: 24px;
+              "
+            >
+              Fill in your details and we'll get back to you within a few hours.
+            </p>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" placeholder="Full name" />
+              </div>
+              <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" placeholder="+91 XXXXX XXXXX" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" placeholder="your@email.com" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>Event Type</label>
+                <select>
+                  <option value="">Select event type</option>
+                  <option>Wedding / Reception</option>
+                  <option>DJ Night / Party</option>
+                  <option>Corporate Event</option>
+                  <option>Fashion Show</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Floor Size (sq.ft.)</label>
+                <input type="text" placeholder="e.g. 200 sq.ft." />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Event Date</label>
+              <input type="date" />
+            </div>
+            <div class="form-group">
+              <label>Message</label>
+              <textarea
+                placeholder="Tell us more about your event, venue, special requirements..."
+              ></textarea>
+            </div>
+            <button class="form-submit" onclick="handleSubmit(event)">
+              Send Enquiry →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#home" class="nav-logo">LEAURE</a>
+          <p>
+            Premium LED dance floor rentals in Kochi, Kerala. Powered by Madrix
+            5. Lighting up weddings, DJ nights, shows & events across Kerala.
+          </p>
+        </div>
+        <div class="footer-links">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Services</h4>
+          <ul>
+            <li><a href="#contact">Wedding Dance Floors</a></li>
+            <li><a href="#contact">DJ Night Setup</a></li>
+            <li><a href="#contact">Corporate Events</a></li>
+            <li><a href="#contact">Fashion Shows</a></li>
+            <li><a href="#contact">Private Parties</a></li>
+            <li><a href="#contact">Custom Sizes</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="tel:+919746179221">+91 9746 179 221</a></li>
+            <li><a href="tel:+917994210052">+91 7994 210 052</a></li>
+            <li><a href="tel:+918590070052">+91 8590 070 052</a></li>
+            <li>
+              <a href="mailto:leaura2026@gmail.com">leaura2026@gmail.com</a>
+            </li>
+            <li><a href="https://wa.me/918590070052">WhatsApp Us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-glow">LEAURE</div>
+      <div class="footer-bottom">
+        <p>© 2026 Leaure. All rights reserved. Kochi, Kerala.</p>
+        <p style="color: var(--muted)">Feel the Beat · Embrace the Rhythm</p>
+      </div>
+    </footer>
+
+    <script>
+      // ── Particles
+      const container = document.getElementById("particles");
+      for (let i = 0; i < 30; i++) {
+        const p = document.createElement("div");
+        p.className = "particle";
+        p.style.left = Math.random() * 100 + "%";
+        p.style.animationDuration = 6 + Math.random() * 10 + "s";
+        p.style.animationDelay = Math.random() * 10 + "s";
+        p.style.width = p.style.height = 1 + Math.random() * 3 + "px";
+        p.style.background =
+          Math.random() > 0.5 ? "var(--cyan)" : "var(--magenta)";
+        container.appendChild(p);
+      }
+
+      // ── Scroll reveal
+      const reveals = document.querySelectorAll(".reveal");
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+      reveals.forEach((r) => observer.observe(r));
+
+      // ── Mobile menu
+      function toggleMenu() {
+        document.getElementById("navLinks").classList.toggle("open");
+      }
+      document.querySelectorAll(".nav-links a").forEach((a) => {
+        a.addEventListener("click", () =>
+          document.getElementById("navLinks").classList.remove("open"),
+        );
+      });
+
+      // ── Form submit
+      function handleSubmit(e) {
+        e.preventDefault();
+        const btn = e.target;
+        btn.textContent = "✓ Enquiry Sent!";
+        btn.style.background = "linear-gradient(135deg, #00c853, #00e676)";
+        setTimeout(() => {
+          btn.textContent = "Send Enquiry →";
+          btn.style.background = "";
+        }, 3000);
+      }
+
+      // ── Sticky nav shrink
+      window.addEventListener("scroll", () => {
+        const nav = document.getElementById("navbar");
+        nav.style.padding = window.scrollY > 50 ? "12px 6%" : "18px 6%";
+      });
+    </script>
+  </body>
+</html>
